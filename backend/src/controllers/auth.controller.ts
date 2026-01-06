@@ -36,8 +36,12 @@ export const signup = async (req: Request, res:Response) => {
         })
 
         if(newUser) {
-            generateToken(newUser._id, res)
-            await newUser.save()
+            // generateToken(newUser._id, res)
+            // await newUser.save()
+
+            // Persist user first, then issue auth
+            const savedUser = await newUser.save()
+            generateToken(savedUser._id, res)
 
             res.status(200).json({
                 _id: newUser._id,
