@@ -13,7 +13,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 
@@ -27,11 +27,13 @@ app.use("/api/messages", messageRoutes);
 //     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 //   });
 // }
-
 app.get("/", (req, res) => {
-  res.json({ status: "Backend is live 🚀" });
+  res.status(200).json({
+    status: "Backend is live 🚀",
+    service: "chatup-api",
+    timestamp: new Date().toISOString(),
+  });
 });
-
 
 app.listen(PORT, () => {
   console.log("server running on port " + PORT);
